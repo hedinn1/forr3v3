@@ -10,6 +10,8 @@
     <!-- three.js -->
     <script src="https://unpkg.com/three@0.126.0/build/three.js"></script>
     <script src="https://unpkg.com/three@0.126.0/examples/js/loaders/GLTFLoader.js"></script>
+    <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
+    <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script>
 </head>
 
 <body>
@@ -105,7 +107,7 @@
                     clone.position.copy(reticle.position);
                     const modelHeight = getBoundingBoxHeight(flower); // Implement function to get the model's height
                     clone.position.copy(reticle.position);
-                    clone.position.y -= modelHeight / 2; // Adjust placement to sit on the surface
+                    clone.position.y += modelHeight / 2; // Adjust placement to sit on the surface
                     clone.visible = true; // Show the skull when placing it in the scene
                     scene.add(clone);
                 }
