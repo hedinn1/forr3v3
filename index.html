@@ -51,7 +51,7 @@
             });
             renderer.autoClear = false;
 
-            
+
 
             // The API directly updates the camera matrices.
             // Disable matrix auto updates so three.js doesn't attempt
@@ -94,10 +94,18 @@
                 scene.add(directionalLight);
             });
 
+            function getBoundingBoxHeight(object) {
+                const box = new THREE.Box3().setFromObject(object);
+                return box.max.y - box.min.y;
+            }
+
             session.addEventListener("select", (event) => {
                 if (flower && reticle) {
                     const clone = flower.clone();
                     clone.position.copy(reticle.position);
+                    const modelHeight = getBoundingBoxHeight(flower); // Implement function to get the model's height
+                    clone.position.copy(reticle.position);
+                    clone.position.y -= modelHeight / 2; // Adjust placement to sit on the surface
                     clone.visible = true; // Show the skull when placing it in the scene
                     scene.add(clone);
                 }
