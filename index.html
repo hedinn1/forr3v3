@@ -82,18 +82,23 @@
 
             let flower;
             loader.load("skull/scene.gltf", function (gltf) {
-    flower = gltf.scene;
-    flower.visible = false; // Initially hide the skull until it's ready to be placed in the scene
-});
+                flower = gltf.scene;
+                flower.visible = false; // Initially hide the skull until it's ready to be placed in the scene
+                flower.scale.set(0.1, 0.1, 0.1); // Example scaling, adjust as needed
+                scene.add(flower);
+                const directionalLight = new THREE.DirectionalLight(0xffffff, 1); // Adjust color and intensity
+                directionalLight.position.set(10, 15, 10);
+                scene.add(directionalLight);
+            });
 
-session.addEventListener("select", (event) => {
-    if (flower && reticle) {
-        const clone = flower.clone();
-        clone.position.copy(reticle.position);
-        clone.visible = true; // Show the skull when placing it in the scene
-        scene.add(clone);
-    }
-});
+            session.addEventListener("select", (event) => {
+                if (flower && reticle) {
+                    const clone = flower.clone();
+                    clone.position.copy(reticle.position);
+                    clone.visible = true; // Show the skull when placing it in the scene
+                    scene.add(clone);
+                }
+            });
 
 
             session.addEventListener("select", (event) => {
