@@ -77,9 +77,25 @@
                 flower.visible = false; // Initially hide the skull until it's ready to be placed in the scene
                 flower.scale.set(0.1, 0.1, 0.1); // Example scaling, adjust as needed
                 scene.add(flower);
-                const directionalLight = new THREE.DirectionalLight(0xffffff, 1); // Adjust color and intensity
+                flower.traverse((child) => {
+                    if (child.isMesh) {
+                        child.castShadow = true;
+                        child.receiveShadow = true;
+                    }
+                });
+                const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
                 directionalLight.position.set(10, 15, 10);
+                directionalLight.castShadow = true; // Configure light to cast shadows
                 scene.add(directionalLight);
+
+                directionalLight.shadow.mapSize.width = 1024;
+                directionalLight.shadow.mapSize.height = 1024;
+                directionalLight.shadow.camera.top = 20;
+                directionalLight.shadow.camera.bottom = -20;
+                directionalLight.shadow.camera.left = -20;
+                directionalLight.shadow.camera.right = 20;
+                directionalLight.shadow.camera.near = 0.1;
+                directionalLight.shadow.camera.far = 50;
             });
 
             function getBoundingBoxHeight(object) {
@@ -130,8 +146,12 @@
                     }
 
                     // Render the scene with THREE.WebGLRenderer.
-                    renderer.render(scene, camera)
+                    renderer.shadowMap.needsUpdate = true;
+
+                    // Render the scene with shadows
+                    renderer.render(scene, camera);
                 }
+                
             }
             session.requestAnimationFrame(onXRFrame);
         }
