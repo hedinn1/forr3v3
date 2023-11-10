@@ -9,24 +9,21 @@
 
     <!-- three.js -->
     
-    <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
-    <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script>
     <script src="https://unpkg.com/three@0.126.0/build/three.js"></script>
     <script src="https://unpkg.com/three@0.126.0/examples/js/loaders/GLTFLoader.js"></script>
 </head>
 
 <body>
-    <a-scene embedded arjs>
-        <a-marker preset="hiro">
-            <!-- Red box or any content you want to display on Hiro marker -->
-            <a-box position='0 0.5 0' material='color: red;'></a-box>
-        </a-marker>
-        <a-entity camera></a-entity>
-    </a-scene>
 
+    <!-- Starting an immersive WebXR session requires user interaction.
+    We start this one with a simple button. -->
+    <button onclick="activateXR()">Start Hello WebXR</button>
+
+    
     <script>
+        async function activateXR() {
             // Add a canvas element and initialize a WebGL context that is compatible with WebXR.
-            const canvas = document.querySelector('a-scene').object3D;
+            const canvas = document.createElement("canvas");
             document.body.appendChild(canvas);
             const gl = canvas.getContext("webgl", { xrCompatible: true });
 
@@ -152,7 +149,7 @@
                 }
             }
             session.requestAnimationFrame(onXRFrame);
-        
+        }
     </script>
 </body>
 
