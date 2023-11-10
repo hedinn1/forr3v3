@@ -45,6 +45,10 @@
             directionalLight.position.set(10, 15, 10);
             scene.add(directionalLight);
 
+            directionalLight.castShadow = true;
+            directionalLight.shadow.mapSize.width = 1024;
+            directionalLight.shadow.mapSize.height = 1024;
+
             // Set up the WebGLRenderer, which handles rendering to the session's base layer.
             const renderer = new THREE.WebGLRenderer({
                 alpha: true,
@@ -114,6 +118,15 @@
                 }
             });
 
+            if (flower) {
+                flower.traverse(child => {
+                    if (child.isMesh) {
+                        child.castShadow = true;
+                        child.receiveShadow = true;
+                    }
+                });
+            }
+
             const onXRFrame = (time, frame) => {
                 // Queue up the next draw request.
                 session.requestAnimationFrame(onXRFrame);
@@ -124,6 +137,7 @@
                 // Retrieve the pose of the device.
                 // XRFrame.getViewerPose can return null while the session attempts to establish tracking.
                 const pose = frame.getViewerPose(referenceSpace);
+                renderer.shadowMap.enabled = true;
                 if (pose) {
                     // In mobile AR, we only have one view.
                     const view = pose.views[0];
