@@ -38,7 +38,9 @@
             ];
 
             // Create the cube and add it to the demo scene.
-            
+            const directionalLight = new THREE.DirectionalLight(0xffffff, 0.3);
+            directionalLight.position.set(10, 15, 10);
+            scene.add(directionalLight);
 
             // Set up the WebGLRenderer, which handles rendering to the session's base layer.
             const renderer = new THREE.WebGLRenderer({
@@ -48,12 +50,8 @@
                 context: gl
             });
             renderer.autoClear = false;
-            renderer.shadowMap.enabled = true; // Enable shadow mapping in the renderer
 
-            const directionalLight = new THREE.DirectionalLight(0xffffff, 0.3);
-            directionalLight.position.set(10, 15, 10);
-            directionalLight.castShadow = true; // Enable shadow casting for the light
-            scene.add(directionalLight);
+            
 
             // The API directly updates the camera matrices.
             // Disable matrix auto updates so three.js doesn't attempt
@@ -91,11 +89,6 @@
                 flower.visible = false; // Initially hide the skull until it's ready to be placed in the scene
                 flower.scale.set(0.1, 0.1, 0.1); // Example scaling, adjust as needed
                 scene.add(flower);
-                flower.traverse(function (child) {
-                    if (child.isMesh) {
-                        child.castShadow = true;
-                    }
-                });
                 const directionalLight = new THREE.DirectionalLight(0xffffff, 1); // Adjust color and intensity
                 directionalLight.position.set(10, 15, 10);
                 scene.add(directionalLight);
