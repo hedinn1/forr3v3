@@ -24,7 +24,6 @@
             document.body.appendChild(canvas);
             const gl = canvas.getContext("webgl", { xrCompatible: true });
 
-            renderer.shadowMap.enabled = true; // Enable shadow mapping in the renderer
 
             const scene = new THREE.Scene();
 
@@ -51,6 +50,7 @@
                 context: gl
             });
             renderer.autoClear = false;
+            renderer.shadowMap.enabled = true; // Enable shadow mapping in the renderer
 
             // The API directly updates the camera matrices.
             // Disable matrix auto updates so three.js doesn't attempt
