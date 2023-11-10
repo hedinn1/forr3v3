@@ -91,6 +91,11 @@
                 flower.visible = false; // Initially hide the skull until it's ready to be placed in the scene
                 flower.scale.set(0.1, 0.1, 0.1); // Example scaling, adjust as needed
                 scene.add(flower);
+                flower.traverse(function (child) {
+                    if (child.isMesh) {
+                        child.castShadow = true;
+                    }
+                });
                 const directionalLight = new THREE.DirectionalLight(0xffffff, 1); // Adjust color and intensity
                 directionalLight.position.set(10, 15, 10);
                 scene.add(directionalLight);
