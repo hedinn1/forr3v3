@@ -19,6 +19,13 @@
     <!-- Starting an immersive WebXR session requires user interaction.
     We start this one with a simple button. -->
     <button onclick="activateXR()">Start Hello WebXR</button>
+    <a-scene embedded arjs>
+        <a-marker preset="hiro">
+            <!-- Your content to display on the marker -->
+            <a-box position='0 0.5 0' material='color: red;'></a-box>
+        </a-marker>
+        <a-entity camera></a-entity>
+    </a-scene>
     <script>
         async function activateXR() {
             // Add a canvas element and initialize a WebGL context that is compatible with WebXR.
