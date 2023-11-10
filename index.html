@@ -38,7 +38,8 @@
             ];
 
             // Create the cube and add it to the demo scene.
-            const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
+            const directionalLight = new THREE.DirectionalLight(0xffffff, 0.3);
+            directionalLight.position.set(10, 15, 10);
             directionalLight.castShadow = true; // Enable shadow casting for the light
             scene.add(directionalLight);
 
