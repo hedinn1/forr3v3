@@ -103,15 +103,6 @@
                 }
             });
 
-
-            session.addEventListener("select", (event) => {
-                if (flower) {
-                    const clone = flower.clone();
-                    clone.position.copy(reticle.position);
-                    scene.add(clone);
-                }
-            });
-
             const onXRFrame = (time, frame) => {
                 // Queue up the next draw request.
                 session.requestAnimationFrame(onXRFrame);
