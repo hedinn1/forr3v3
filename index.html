@@ -24,6 +24,8 @@
             document.body.appendChild(canvas);
             const gl = canvas.getContext("webgl", { xrCompatible: true });
 
+            renderer.shadowMap.enabled = true; // Enable shadow mapping in the renderer
+
             const scene = new THREE.Scene();
 
             // The cube will have a different color on each side.
@@ -37,8 +39,8 @@
             ];
 
             // Create the cube and add it to the demo scene.
-            const directionalLight = new THREE.DirectionalLight(0xffffff, 0.3);
-            directionalLight.position.set(10, 15, 10);
+            const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
+            directionalLight.castShadow = true; // Enable shadow casting for the light
             scene.add(directionalLight);
 
             // Set up the WebGLRenderer, which handles rendering to the session's base layer.
