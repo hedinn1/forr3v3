@@ -94,8 +94,13 @@
             session.addEventListener("select", (event) => {
                 if (flower && reticle) {
                     const clone = flower.clone();
+
+                    // Adjust placement relative to the reticle position
+                    const modelHeight = getBoundingBoxHeight(flower); // Implement function to get the model's height
                     clone.position.copy(reticle.position);
-                    clone.visible = true; // Show the skull when placing it in the scene
+                    clone.position.y -= modelHeight / 2; // Adjust placement to sit on the surface
+
+                    clone.visible = true;
                     scene.add(clone);
                 }
             });
