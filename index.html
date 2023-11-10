@@ -30,26 +30,10 @@
 
             const scene = new THREE.Scene();
 
-            // The cube will have a different color on each side.
-            const materials = [
-                new THREE.MeshBasicMaterial({ color: 0xff0000 }),
-                new THREE.MeshBasicMaterial({ color: 0x0000ff }),
-                new THREE.MeshBasicMaterial({ color: 0x00ff00 }),
-                new THREE.MeshBasicMaterial({ color: 0xff00ff }),
-                new THREE.MeshBasicMaterial({ color: 0x00ffff }),
-                new THREE.MeshBasicMaterial({ color: 0xffff00 })
-            ];
-
-            // Create the cube and add it to the demo scene.
             const directionalLight = new THREE.DirectionalLight(0xffffff, 0.3);
             directionalLight.position.set(10, 15, 10);
             scene.add(directionalLight);
 
-            directionalLight.castShadow = true;
-            directionalLight.shadow.mapSize.width = 1024;
-            directionalLight.shadow.mapSize.height = 1024;
-
-            // Set up the WebGLRenderer, which handles rendering to the session's base layer.
             const renderer = new THREE.WebGLRenderer({
                 alpha: true,
                 preserveDrawingBuffer: true,
@@ -91,7 +75,7 @@
             })
 
             let flower;
-            loader.load("skull/scene.gltf", function (gltf) {
+            loader.load("https://immersive-web.github.io/webxr-samples/media/gltf/sunflower/sunflower.gltf", function (gltf) { /* "skull/scene.gltf" */
                 flower = gltf.scene;
                 flower.visible = false; // Initially hide the skull until it's ready to be placed in the scene
                 flower.scale.set(0.1, 0.1, 0.1); // Example scaling, adjust as needed
@@ -118,15 +102,6 @@
                 }
             });
 
-            if (flower) {
-                flower.traverse(child => {
-                    if (child.isMesh) {
-                        child.castShadow = true;
-                        child.receiveShadow = true;
-                    }
-                });
-            }
-
             const onXRFrame = (time, frame) => {
                 // Queue up the next draw request.
                 session.requestAnimationFrame(onXRFrame);
@@ -137,7 +112,6 @@
                 // Retrieve the pose of the device.
                 // XRFrame.getViewerPose can return null while the session attempts to establish tracking.
                 const pose = frame.getViewerPose(referenceSpace);
-                renderer.shadowMap.enabled = true;
                 if (pose) {
                     // In mobile AR, we only have one view.
                     const view = pose.views[0];
