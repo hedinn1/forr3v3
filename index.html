@@ -72,7 +72,7 @@
             })
 
             let flower;
-            loader.load("https://immersive-web.github.io/webxr-samples/media/gltf/sunflower/sunflower.gltf", function (gltf) { /* "ball/ball.gltf" */
+            loader.load("ball/ball.gltf", function (gltf) { /* "ball/ball.gltf" */
                 flower = gltf.scene;
                 flower.visible = false; // Initially hide the skull until it's ready to be placed in the scene
                 flower.scale.set(0.1, 0.1, 0.1); // Example scaling, adjust as needed
